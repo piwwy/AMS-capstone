@@ -1,43 +1,23 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+
+import Reports from './components/Reports';
+
+import SecurityAudit from './components/SecurityAudit';
+import UserManagement from './components/UserManagement';
 import ApiService from './services/api';
 // AMS modules
-import {
-  Dashboard as AmsDashboard,
-  AlumniLogin,
-  AlumniDirectory,
-  AlumniProfiles,
-  AlumniRequests,
-  CareerTracking,
-  EmploymentOutcomes,
-  GradCohorts,
-  JobBoard,
-  JobPostForm,
-  PlacementLogs,
-  JobRecommendations,
-  EventsCalendar,
-  EventCreate,
-  EventAttendance,
-  Donations,
-  Campaigns,
-  DonorLedger,
-  Announcements,
-  Newsletter,
-  MailingLists,
-  Surveys,
-  SurveyResponses,
-  SurveyInsights,
-  AlumniReports,
-  TrackingAnalytics,
-  DataExports,
-  AlumniAchievements,
-  AlumniMentorship,
-  AlumniMembership,
-  UserManagement,
-  AuditLogs,
-  Settings
-} from './src/components/ams';
+import { 
+  AlumniDirectory, AlumniProfiles, AlumniRequests,
+  GradCohorts, EmploymentOutcomes, TrackingAnalytics,
+  JobBoard, JobPostForm, PlacementLogs,
+  EventsCalendar, EventCreate, EventAttendance,
+  Campaigns, Donations, DonorLedger,
+  Newsletter, Announcements, MailingLists,
+  Surveys, SurveyResponses, SurveyInsights,
+  DataExports
+} from './components/ams';
 
 // If you used CalendarIcon:
 import { Calendar as CalendarIcon } from 'lucide-react';
@@ -74,7 +54,6 @@ interface User {
 interface SubModule {
   id: string;
   name: string;
-  path: string;
   component: React.ComponentType<any>;
 }
 
@@ -86,10 +65,10 @@ interface Module {
   subModules?: SubModule[];
 }
 
-function AppShell() {
+function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [activeModule, setActiveModule] = useState('dashboard');
-  const [expandedModules, setExpandedModules] = useState<string[]>(['core']);
+  const [expandedModules, setExpandedModules] = useState<string[]>(['overview']);
   const [searchQuery, setSearchQuery] = useState('');
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -128,159 +107,105 @@ function AppShell() {
     }
   ]);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const modules: Module[] = useMemo(
-    () => [
-      {
-        id: 'core',
-        name: 'Core & Access',
-        icon: LayoutDashboard,
-        subModules: [
-          { id: 'dashboard', name: 'Dashboard', path: '/dashboard', component: AmsDashboard },
-          { id: 'alumni-login', name: 'Alumni Login', path: '/alumni-login', component: AlumniLogin }
-        ]
-      },
-      {
-        id: 'alumni',
-        name: 'Alumni Information',
-        icon: User,
-        subModules: [
-          { id: 'alumni-directory', name: 'Directory', path: '/alumni-directory', component: AlumniDirectory },
-          { id: 'alumni-profiles', name: 'Profiles', path: '/alumni-profiles', component: AlumniProfiles },
-          { id: 'alumni-requests', name: 'Update Requests', path: '/alumni-requests', component: AlumniRequests }
-        ]
-      },
-      {
-        id: 'graduate-tracking',
-        name: 'Graduate Tracking',
-        icon: BarChart3,
-        subModules: [
-          { id: 'career-tracking', name: 'Career Tracking', path: '/career-tracking', component: CareerTracking },
-          { id: 'employment-outcomes', name: 'Employment Outcomes', path: '/employment-outcomes', component: EmploymentOutcomes },
-          { id: 'grad-cohorts', name: 'Graduate Cohorts', path: '/grad-cohorts', component: GradCohorts }
-        ]
-      },
-      {
-        id: 'jobs',
-        name: 'Job Posting & Placement',
-        icon: TrendingUp,
-        subModules: [
-          { id: 'job-board', name: 'Job Board', path: '/job-board', component: JobBoard },
-          { id: 'job-post', name: 'Post a Job', path: '/job-post', component: JobPostForm },
-          { id: 'placement-logs', name: 'Placement Logs', path: '/placement-logs', component: PlacementLogs },
-          { id: 'job-recommendations', name: 'Recommendations', path: '/job-recommendations', component: JobRecommendations }
-        ]
-      },
-      {
-        id: 'events',
-        name: 'Event Management',
-        icon: CalendarIcon,
-        subModules: [
-          { id: 'events-calendar', name: 'Calendar', path: '/events-calendar', component: EventsCalendar },
-          { id: 'event-create', name: 'Create Event', path: '/event-create', component: EventCreate },
-          { id: 'event-attendance', name: 'Attendance & Tickets', path: '/event-attendance', component: EventAttendance }
-        ]
-      },
-      {
-        id: 'donations',
-        name: 'Donor & Campaign Tools',
-        icon: PiggyBank,
-        subModules: [
-          { id: 'donations', name: 'Donations', path: '/donations', component: Donations },
-          { id: 'campaigns', name: 'Campaigns', path: '/campaigns', component: Campaigns },
-          { id: 'donor-ledger', name: 'Donor Ledger', path: '/donor-ledger', component: DonorLedger }
-        ]
-      },
-      {
-        id: 'communications',
-        name: 'Communications',
-        icon: Bell,
-        subModules: [
-          { id: 'announcements', name: 'Announcements', path: '/announcements', component: Announcements },
-          { id: 'newsletter', name: 'Newsletter', path: '/newsletter', component: Newsletter },
-          { id: 'mailing-lists', name: 'Mailing Lists', path: '/mailing-lists', component: MailingLists }
-        ]
-      },
-      {
-        id: 'surveys',
-        name: 'Surveys & Feedback',
-        icon: AlertCircle,
-        subModules: [
-          { id: 'surveys', name: 'Surveys', path: '/surveys', component: Surveys },
-          { id: 'survey-responses', name: 'Responses', path: '/survey-responses', component: SurveyResponses },
-          { id: 'survey-insights', name: 'Insights', path: '/survey-insights', component: SurveyInsights }
-        ]
-      },
-      {
-        id: 'reports',
-        name: 'Reports & Analytics',
-        icon: FileText,
-        subModules: [
-          { id: 'alumni-reports', name: 'Alumni Reports', path: '/alumni-reports', component: AlumniReports },
-          { id: 'tracking-analytics', name: 'Tracking Analytics', path: '/tracking-analytics', component: TrackingAnalytics },
-          { id: 'data-exports', name: 'Data Exports', path: '/data-exports', component: DataExports }
-        ]
-      },
-      {
-        id: 'engagement',
-        name: 'Engagement & Community',
-        icon: Building,
-        subModules: [
-          { id: 'alumni-achievements', name: 'Achievements', path: '/alumni-achievements', component: AlumniAchievements },
-          { id: 'alumni-mentorship', name: 'Mentorship', path: '/alumni-mentorship', component: AlumniMentorship },
-          { id: 'alumni-membership', name: 'Membership', path: '/alumni-membership', component: AlumniMembership }
-        ]
-      },
-      {
-        id: 'security',
-        name: 'Security & Admin',
-        icon: Shield,
-        subModules: [
-          { id: 'user-management', name: 'User Management', path: '/user-management', component: UserManagement },
-          { id: 'audit-logs', name: 'Audit Logs', path: '/audit-logs', component: AuditLogs },
-          { id: 'settings', name: 'Settings', path: '/settings', component: Settings }
-        ]
-      }
-    ],
-    []
-  );
-
-  const routeEntries = useMemo(
-    () =>
-      modules.flatMap(module =>
-        module.subModules?.map(subModule => ({
-          id: subModule.id,
-          path: subModule.path,
-          component: subModule.component
-        })) ?? []
-      ),
-    [modules]
-  );
-
-  const modulePathMap = useMemo(() => {
-    const map: Record<string, string> = {};
-    routeEntries.forEach(entry => {
-      map[entry.id] = entry.path;
-    });
-    return map;
-  }, [routeEntries]);
-
-  useEffect(() => {
-    const matched = routeEntries.find(entry => entry.path === location.pathname);
-    if (matched && matched.id !== activeModule) {
-      setActiveModule(matched.id);
-      const parentModule = modules.find(module =>
-        module.subModules?.some(subModule => subModule.id === matched.id)
-      );
-      if (parentModule) {
-        setExpandedModules(prev =>
-          prev.includes(parentModule.id) ? prev : [...prev, parentModule.id]
-        );
-      }
-    }
-  }, [location.pathname, routeEntries, modules, activeModule]);
+const modules: Module[] = [
+  {
+    id: 'overview',
+    name: 'Overview',
+    icon: LayoutDashboard,
+    subModules: [
+      { id: 'dashboard', name: 'Dashboard', component: Dashboard }
+    ]
+  },
+  {
+    id: 'alumni',
+    name: 'Alumni Information',
+    icon: User,
+    subModules: [
+      { id: 'alumni-directory', name: 'Directory', component: AlumniDirectory },
+      { id: 'alumni-profiles', name: 'Profiles', component: AlumniProfiles },
+      { id: 'alumni-requests', name: 'Update Requests', component: AlumniRequests }
+    ]
+  },
+  {
+    id: 'graduate-tracking',
+    name: 'Graduate Tracking',
+    icon: BarChart3,
+    subModules: [
+      { id: 'grad-cohorts', name: 'Cohorts', component: GradCohorts },
+      { id: 'employment-outcomes', name: 'Employment Outcomes', component: EmploymentOutcomes },
+      { id: 'analytics', name: 'Analytics', component: TrackingAnalytics }
+    ]
+  },
+  {
+    id: 'jobs',
+    name: 'Job Posting & Placement',
+    icon: TrendingUp,
+    subModules: [
+      { id: 'job-board', name: 'Job Board', component: JobBoard },
+      { id: 'job-post', name: 'Post a Job', component: JobPostForm },
+      { id: 'placement-logs', name: 'Placement Logs', component: PlacementLogs }
+    ]
+  },
+  {
+    id: 'events',
+    name: 'Event Management',
+    icon: CalendarIcon, // any lucide icon you already import
+    subModules: [
+      { id: 'events-calendar', name: 'Calendar', component: EventsCalendar },
+      { id: 'event-create', name: 'Create Event', component: EventCreate },
+      { id: 'event-attendance', name: 'Attendance & Tickets', component: EventAttendance }
+    ]
+  },
+  {
+    id: 'donations',
+    name: 'Donor & Campaign Tools',
+    icon: PiggyBank,
+    subModules: [
+      { id: 'campaigns', name: 'Campaigns', component: Campaigns },
+      { id: 'donations', name: 'Donations', component: Donations },
+      { id: 'donor-ledger', name: 'Donor Ledger', component: DonorLedger }
+    ]
+  },
+  {
+    id: 'comm',
+    name: 'Newsletter & Announcements',
+    icon: FileText,
+    subModules: [
+      { id: 'newsletter', name: 'Newsletter', component: Newsletter },
+      { id: 'announcements', name: 'Announcements', component: Announcements },
+      { id: 'mailing-lists', name: 'Mailing Lists', component: MailingLists }
+    ]
+  },
+  {
+    id: 'feedback',
+    name: 'Feedback & Survey',
+    icon: AlertCircle,
+    subModules: [
+      { id: 'surveys', name: 'Surveys', component: Surveys },
+      { id: 'responses', name: 'Responses', component: SurveyResponses },
+      { id: 'insights', name: 'Insights', component: SurveyInsights }
+    ]
+  },
+  {
+    id: 'reports',
+    name: 'Reports',
+    icon: BarChart3,
+    subModules: [
+      { id: 'kpis', name: 'KPIs', component: Reports },
+      { id: 'exports', name: 'Exports', component: DataExports }
+    ]
+  },
+  {
+    id: 'security',
+    name: 'Security & Users',
+    icon: Shield,
+    subModules: [
+      { id: 'user-management', name: 'User Management', component: UserManagement },
+      { id: 'access-controls', name: 'Access Controls', component: SecurityAudit },
+      { id: 'audit-trail', name: 'Audit Trail', component: SecurityAudit }
+    ]
+  }
+];
 
 
   const handleLogin = async (user: User) => {
@@ -290,9 +215,6 @@ function AppShell() {
     if (token) {
       ApiService.setToken(token);
     }
-    setActiveModule('dashboard');
-    setExpandedModules(['core']);
-    navigate('/dashboard');
   };
 
   const handleLogout = async () => {
@@ -303,8 +225,6 @@ function AppShell() {
     } finally {
       setCurrentUser(null);
       setActiveModule('dashboard');
-      setExpandedModules(['core']);
-      navigate('/dashboard');
     }
   };
 
@@ -319,56 +239,52 @@ function AppShell() {
   const setActiveModuleHandler = (moduleId: string) => {
     setActiveModule(moduleId);
     setSearchQuery(''); // Clear search when navigating
-    const targetPath = modulePathMap[moduleId];
-    if (targetPath) {
-      navigate(targetPath);
-    }
   };
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-
+    
     if (query.trim()) {
-      const lowered = query.toLowerCase();
-      const searchResults: {
-        type: 'module' | 'submodule';
-        id: string;
-        name: string;
-        path: string;
-        parent?: string;
-      }[] = [];
-
+      // Search through modules and sub-modules
+      const searchResults = [];
+      
       modules.forEach(module => {
-        if (module.name.toLowerCase().includes(lowered)) {
-          const defaultSubModule = module.subModules?.[0];
+        // Check main module name
+        if (module.name.toLowerCase().includes(query.toLowerCase())) {
           searchResults.push({
             type: 'module',
-            id: defaultSubModule ? defaultSubModule.id : module.id,
+            id: module.id,
             name: module.name,
-            path: defaultSubModule ? defaultSubModule.path : '/dashboard'
+            path: module.id
           });
         }
-
-        module.subModules?.forEach(subModule => {
-          if (subModule.name.toLowerCase().includes(lowered)) {
-            searchResults.push({
-              type: 'submodule',
-              id: subModule.id,
-              name: subModule.name,
-              parent: module.name,
-              path: subModule.path
-            });
-          }
-        });
+        
+        // Check sub-modules
+        if (module.subModules) {
+          module.subModules.forEach(subModule => {
+            if (subModule.name.toLowerCase().includes(query.toLowerCase())) {
+              searchResults.push({
+                type: 'submodule',
+                id: subModule.id,
+                name: subModule.name,
+                parent: module.name,
+                path: subModule.id
+              });
+            }
+          });
+        }
       });
-
-      const exactMatch = searchResults.find(result =>
-        result.name.toLowerCase() === lowered
-      );
-
-      if (exactMatch) {
-        setActiveModuleHandler(exactMatch.id);
-        setSearchQuery('');
+      
+      // Auto-navigate to first result if exact match
+      if (searchResults.length > 0) {
+        const exactMatch = searchResults.find(result => 
+          result.name.toLowerCase() === query.toLowerCase()
+        );
+        
+        if (exactMatch) {
+          setActiveModule(exactMatch.path);
+          setSearchQuery('');
+        }
       }
     }
   };
@@ -408,7 +324,7 @@ function AppShell() {
         }
       }
     }
-    return AmsDashboard; // Default fallback
+    return Dashboard; // Default fallback
   };
 
   const CurrentComponent = getCurrentComponent();
@@ -571,7 +487,7 @@ function AppShell() {
                             className="px-4 py-2 hover:bg-gray-50 cursor-pointer border-b border-gray-100"
                             onClick={() => {
                               if (module.subModules && module.subModules.length > 0) {
-                                setActiveModuleHandler(module.subModules[0].id);
+                                setActiveModule(module.subModules[0].id);
                               }
                               setSearchQuery('');
                             }}
@@ -587,7 +503,7 @@ function AppShell() {
                             key={subModule.id}
                             className="px-4 py-2 hover:bg-gray-50 cursor-pointer border-b border-gray-100"
                             onClick={() => {
-                              setActiveModuleHandler(subModule.id);
+                              setActiveModule(subModule.id);
                               setSearchQuery('');
                             }}
                           >
@@ -702,7 +618,7 @@ function AppShell() {
                       <button
                         className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-3"
                         onClick={() => {
-                          setActiveModuleHandler('user-management');
+                          setActiveModule('user-management');
                           setShowSettings(false);
                         }}
                       >
@@ -713,7 +629,7 @@ function AppShell() {
                       <button
                         className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-3"
                         onClick={() => {
-                          setActiveModuleHandler('settings');
+                          setActiveModule('access-controls');
                           setShowSettings(false);
                         }}
                       >
@@ -724,7 +640,7 @@ function AppShell() {
                       <button
                         className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-3"
                         onClick={() => {
-                          setActiveModuleHandler('audit-logs');
+                          setActiveModule('audit-trail');
                           setShowSettings(false);
                         }}
                       >
@@ -766,31 +682,21 @@ function AppShell() {
         {/* Content Area */}
         <main className="flex-1 overflow-y-auto p-6">
           {/* Click outside handlers */}
-          <div
+          <div 
             onClick={() => {
               setShowNotifications(false);
               setShowSettings(false);
             }}
           >
-            <Routes>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              {routeEntries.map(({ path, component: Component }) => (
-                <Route key={path} path={path} element={<Component />} />
-              ))}
-              <Route path="*" element={<CurrentComponent />} />
-            </Routes>
+          <CurrentComponent 
+            user={currentUser} 
+            currentUser={currentUser}
+            onNavigate={setActiveModuleHandler} 
+          />
           </div>
         </main>
       </div>
     </div>
-  );
-}
-
-function App(): JSX.Element {
-  return (
-    <Router>
-      <AppShell />
-    </Router>
   );
 }
 
