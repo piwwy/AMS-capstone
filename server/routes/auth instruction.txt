@@ -1,0 +1,42 @@
+# Instructions for Refactoring routes/auth.js (FMS → AMS)
+
+Goal:
+Refactor the current routes/auth.js file from Financial Management System (FMS) to Alumni Management System (AMS).
+
+1. Keep core functionality the same:
+   - Login should authenticate user with username/email + password.
+   - Generate JWT token with user data (id, username, email, role).
+   - Logout should verify and log audit action.
+   - Register should hash password and create a new user.
+
+2. Update user roles to align with AMS:
+   - super_admin
+   - admin
+   - alumni
+
+3. Adjust token payload:
+   - Include: userId, username, email, role
+   - Remove unused FMS-specific fields like department.
+
+4. Update registration:
+   - Only super_admin can create new admin or alumni accounts.
+   - Alumni self-registration can be enabled (basic alumni role, pending approval by admin).
+   - Validate role field to only allow AMS roles (super_admin, admin, alumni).
+
+5. Audit logging:
+   - Keep logAuditAction calls for LOGIN and LOGOUT.
+   - Table should remain `audit_logs`.
+   - Store login_time / logout_time as part of newValues.
+
+6. Error handling:
+   - Keep 400 for missing fields or invalid input.
+   - 401 for invalid credentials.
+   - 500 for internal server errors.
+
+7. Clean code and return consistent JSON responses:
+   - Login success: { success: true, token, user }
+   - Register success: { success: true, message, userId }
+   - Logout success: { success: true, message }
+
+"Here is server/routes/auth.js and an instructions.txt file. Please refactor auth.js to remove FMS-specific code and align it with AMS. Use roles super_admin, admin, and alumni. Update token payload, registration rules, and keep audit logging. Follow the rules in instructions.txt."
+

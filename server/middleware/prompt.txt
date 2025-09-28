@@ -1,0 +1,1 @@
+"Here is server/middleware/auth.js and instructions.txt. Please refactor auth.js to replace FMS roles with AMS roles (super_admin, admin, alumni) and update the permissions according to the instructions. Keep JWT authentication the same."

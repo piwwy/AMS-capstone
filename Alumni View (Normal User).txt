@@ -1,0 +1,29 @@
+ALUMNI
+│
+├── Dashboard (personal stats & job suggestions)
+│
+├── My Profile
+│   └── AlumniProfiles (self-edit only)
+│
+├── Graduate Tracking
+│   └── CareerTracking (update own employment history)
+│
+├── Job Board
+│   ├── JobBoard
+│   └── JobRecommendations       <-- personalized feed
+│
+├── Event Management
+│   ├── EventsCalendar
+│   └── EventAttendance (register to events)
+│
+├── Donor & Campaign Tools
+│   └── Donations (make a donation, choose display preference)
+│
+├── Newsletter & Announcements
+│   └── Newsletter (read only)
+│
+└── Feedback & Surveys
+    ├── Surveys (take survey)
+    └── SurveyResponses (view own responses)
+
+(No access to Admin/Financial reports, Audit Logs, Settings, or User Management)

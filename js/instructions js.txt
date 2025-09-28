@@ -1,0 +1,70 @@
+Convert my old FMS JS files into AMS JS files.  
+
+Follow this folder structure and module purposes:
+
+js/
+│
+├── auth.js                # Authentication & role-based access (Super Admin, Admin, Alumni)
+├── dashboard.js           # Dashboard KPIs: total alumni, employment %, donations, jobs
+├── database.js            # Database helper (queries for alumni, jobs, events, donations)
+├── main.js                # App entry logic / bootstrap
+├── modals.js              # Reusable modals for AMS (add alumni, create event, post job, donate)
+├── workflow.js            # Approval flows (donor visibility, alumni requests, event approvals)
+│
+├── alumniRequests.js      # Alumni requests (certificates, membership, account updates)
+├── alumniProfiles.js      # Alumni profiles management (info, updates, verification)
+├── careerTracking.js      # Graduate career path (employment history, outcomes, analytics)
+├── jobBoard.js            # Job board listing, posting, placement logs
+├── jobRecommendations.js  # AI/n8n-powered personalized job suggestions
+│
+├── events.js              # Event management (calendar, create, attendance)
+├── campaigns.js           # Fundraising campaigns (linked to donations)
+├── donations.js           # Donation logic (donor preferences, top donor display, approvals)
+│
+├── surveys.js             # Surveys creation, responses, insights
+├── reports.js             # Alumni reports (employment rates, donations, survey stats)
+
+---
+
+### Mapping from FMS → AMS
+
+- budget.js → donations.js
+- expenses.js → events.js
+- funds.js → campaigns.js
+- payables.js → alumniRequests.js
+- receivables.js → jobBoard.js
+- revenue.js → careerTracking.js
+- reports.js → reports.js (but handle alumni data instead of finance)
+
+---
+
+### Add these new AMS files
+
+- alumniProfiles.js → detailed alumni info.
+- jobRecommendations.js → automated AI job recommendations via n8n.
+- surveys.js → alumni surveys and feedback.
+- surveyInsights.js → analyze survey results.
+- employmentOutcomes.js → analyze employment statistics.
+- gradCohorts.js → compare outcomes per batch.
+- placementLogs.js → record alumni job placements.
+- donorLedger.js → donation transparency ledger.
+- trackingAnalytics.js → engagement + tracking analytics.
+- dataExports.js → export alumni data (CSV, Excel).
+- userManagement.js → RBAC (Super Admin, Admin, Alumni).
+- auditLogs.js → system activity logs.
+- settings.js → system configs + integrations.
+- jobFetchWorkflow.js → fetch jobs from LinkedIn/JobStreet APIs (via n8n).
+- alumniJobMatch.js → match jobs to alumni courses/skills (AI).
+- autoNotification.js → email/notification triggers.
+
+---
+
+### Conversion Rules
+
+1. Remove finance-related logic (budgets, revenues, expenses, accounts payable/receivable).
+2. Replace with alumni-related logic (graduates, jobs, donations, events).
+3. Ensure functions and variable names reflect AMS terminology (e.g., `donor`, `alumni`, `event`, `job`).
+4. Keep modular separation: each file should only handle its own logic (no mixing).
+5. Prepare functions so they can later connect to real DB (MySQL/Postgres) but allow mock data for now.
+6. Use consistent export style (`export default` or `module.exports`).
+7. Output all updated AMS JS files in the `js/` folder.

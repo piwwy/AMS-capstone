@@ -1,0 +1,87 @@
+Core & Access
+
+Dashboard.tsx → System KPIs & quick actions
+
+AlumniLogin.tsx → Authentication (leave your customized login as is)
+
+Alumni Information
+
+AlumniDirectory.tsx → List of alumni records
+
+AlumniProfiles.tsx → Detailed alumni info & profile updates
+
+AlumniRequests.tsx → Requests (certificates, account updates, membership)
+
+Graduate Tracking
+
+CareerTracking.tsx → Employment history logs per alumni
+
+EmploymentOutcomes.tsx → Analytics (employed %, industries, trends)
+
+GradCohorts.tsx → Batch-level comparison of outcomes
+
+Job Posting & Placement
+
+JobBoard.tsx → Public job board view
+
+JobPostForm.tsx → For admins/companies to post jobs
+
+PlacementLogs.tsx → Track alumni placements
+
+JobRecommendations.tsx → AI/n8n-driven job suggestions per alumni
+
+Event Management
+
+EventsCalendar.tsx → Overview of events
+
+EventCreate.tsx → Create/manage event
+
+EventAttendance.tsx → Track attendance/tickets
+
+Donor & Campaign Tools
+
+Donations.tsx → Donation handling (donor display preferences)
+
+Campaigns.tsx → Fundraising campaigns
+
+DonorLedger.tsx → Ledger view (transparency of funds)
+
+Communications
+
+Announcements.tsx
+
+Newsletter.tsx
+
+MailingLists.tsx
+
+Surveys & Feedback
+
+Surveys.tsx
+
+SurveyResponses.tsx
+
+SurveyInsights.tsx
+
+Reports & Analytics
+
+AlumniReports.tsx
+
+TrackingAnalytics.tsx
+
+DataExports.tsx
+
+Engagement / Community
+
+AlumniAchievements.tsx
+
+AlumniMentorship.tsx
+
+(Optional later: AlumniMembership.tsx)
+
+Security & Admin
+
+UserManagement.tsx → RBAC (super admin, admin, alumni)
+
+AuditLogs.tsx → Activity logs
+
+Settings.tsx → System configs, integrations

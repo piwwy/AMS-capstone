@@ -1,0 +1,52 @@
+# Instructions for Refactoring server.js (FMS → AMS)
+
+Goal:
+Refactor server.js from Financial Management System (FMS) into Alumni Management System (AMS).
+
+1. Keep core setup:
+   - Keep express, cors, dotenv, middleware, trust proxy, health check, error handling, and graceful shutdown.
+
+2. Remove all FMS-specific routes:
+   - /api/budget
+   - /api/revenue
+   - /api/expenses
+   - /api/payables
+   - /api/receivables
+   - /api/funds
+   - /api/procurement
+   - /api/assets
+   - /api/reports
+
+3. Replace with AMS-specific routes:
+   - /api/auth → Authentication & registration
+   - /api/alumni → Alumni records (profiles, directory, requests)
+   - /api/tracking → Graduate career tracking (employment status, cohorts, outcomes)
+   - /api/jobs → Job board, job posts, placement logs, recommendations
+   - /api/events → Events (calendar, create, attendance)
+   - /api/donations → Donations (donor preferences, approvals)
+   - /api/campaigns → Fundraising campaigns
+   - /api/communications → Announcements, newsletters, mailing lists
+   - /api/surveys → Surveys, responses, insights
+   - /api/reports → Alumni reports, analytics, exports
+   - /api/achievements → Alumni achievements
+   - /api/mentorship → Mentorship program (mentor/mentee pairing)
+   - /api/users → User management (RBAC, roles, permissions)
+   - /api/audit-logs → Audit logs & system activity
+   - /api/settings → System configs, email templates, integrations
+
+4. Health Check:
+   - Keep `/api/health` endpoint
+   - Update response to show `"system": "Alumni Management System"`
+
+5. Console Logs:
+   - Update startup message to:
+     🚀 Alumni Management System API running on port X
+     📊 Environment: ...
+     🔗 Health check: http://localhost:X/api/health
+
+6. Error handling:
+   - Keep global error handler and 404 handler
+   - No changes needed except error messages should mention AMS, not FMS
+
+
+“Here’s server.js and an instructions.txt. Please refactor server.js into AMS version by removing FMS-specific routes and adding AMS modules. Keep health check, error handling, and graceful shutdown. Update console logs to say Alumni Management System API.”

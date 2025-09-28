@@ -1,0 +1,54 @@
+SUPER ADMIN
+│
+├── Dashboard (system-wide KPIs)
+│
+├── Alumni Information
+│   ├── AlumniDirectory
+│   ├── AlumniProfiles
+│   └── AlumniRequests
+│
+├── Graduate Tracking
+│   ├── CareerTracking           <-- NEW
+│   ├── EmploymentOutcomes       <-- NEW
+│   └── GradCohorts
+│
+├── Job Posting & Placement
+│   ├── JobBoard
+│   ├── JobPostForm
+│   ├── PlacementLogs
+│   └── JobRecommendations       <-- NEW
+│
+├── Event Management
+│   ├── EventsCalendar
+│   ├── EventCreate
+│   └── EventAttendance
+│
+├── Donor & Campaign Tools
+│   ├── Donations
+│   ├── Campaigns
+│   └── DonorLedger
+│
+├── Newsletter & Announcements
+│   ├── Newsletter
+│   ├── MailingLists
+│   └── Announcements
+│
+├── Feedback & Surveys
+│   ├── Surveys
+│   ├── SurveyResponses
+│   └── SurveyInsights
+│
+├── Reports & Analytics
+│   ├── AlumniReports
+│   ├── TrackingAnalytics
+│   └── DataExports
+│
+├── Security & Users
+│   ├── UserManagement
+│   ├── AuditLogs
+│   └── Settings
+│
+└── Integrations (n8n AI)
+    ├── JobFetchWorkflow.js      <-- NEW
+    ├── AlumniJobMatch.js        <-- NEW
+    └── AutoNotification.js      <-- NEW

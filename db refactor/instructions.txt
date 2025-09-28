@@ -1,0 +1,52 @@
+# Instructions for Refactoring database.js (FMS → AMS)
+
+Goal:
+Refactor the current database.js file used in the Financial Management System (FMS) into Alumni Management System (AMS).
+
+1. Remove all FMS-specific tables and methods (budgets, revenue, expenses, accounts_payable, accounts_receivable, funds, financial_requests, etc.).
+
+2. Create new AMS tables and methods instead. Base them on AMS modules:
+
+   Alumni Information:
+   - alumni_profiles (id, first_name, last_name, suffix, course, graduation_year, email, phone, address, current_employer, job_title, industry, created_at)
+   - Methods: createAlumni, getAlumni, updateAlumni
+
+   Employment Tracking:
+   - employment_status (id, alumni_id, status [employed, unemployed, seeking, studying], work_type [onsite, remote, hybrid], employer, job_title, start_date, end_date, created_at)
+   - Methods: createEmploymentStatus, getEmploymentHistory
+
+   Job Posting & Placement:
+   - job_postings (id, title, description, company, location, job_type, posted_by, created_at)
+   - placement_logs (id, alumni_id, job_id, placement_date, status)
+   - Methods: createJobPosting, getJobPostings, createPlacement, getPlacements
+
+   Events:
+   - events (id, title, description, location, date, created_by, created_at)
+   - event_attendance (id, event_id, alumni_id, status)
+   - Methods: createEvent, getEvents, recordAttendance
+
+   Donations & Campaigns:
+   - donations (id, donor_name, donor_email, amount, donation_type, campaign_id, is_anonymous, message, created_at)
+   - campaigns (id, title, description, goal_amount, start_date, end_date, created_at)
+   - Methods: createDonation, getDonations, createCampaign, getCampaigns
+
+   Mentorship:
+   - mentorships (id, mentor_id, mentee_id, start_date, status)
+   - Methods: createMentorship, getMentorships
+
+   Surveys & Feedback:
+   - surveys (id, title, description, created_by, created_at)
+   - survey_responses (id, survey_id, alumni_id, response_json, created_at)
+   - Methods: createSurvey, getSurveys, recordResponse
+
+   Reports & Audit:
+   - audit_logs (id, user_id, action, table_name, record_id, old_values, new_values, ip_address, user_agent, created_at)
+   - Methods: logAuditAction, getAuditLogs
+
+3. Keep the DatabaseManager class structure but replace the FMS methods with AMS equivalents.
+
+4. Make sure `schema.sql` is also updated with the new AMS tables listed above.
+
+5. Ensure foreign keys are enabled (e.g., alumni_id references alumni_profiles.id).
+
+6. Keep functions clean and modular, using `this.db.prepare(...).run()` or `.all()` as needed.

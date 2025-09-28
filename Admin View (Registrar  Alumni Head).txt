@@ -1,0 +1,46 @@
+ADMIN
+│
+├── Dashboard (alumni KPIs, employment stats)
+│
+├── Alumni Information
+│   ├── AlumniDirectory
+│   ├── AlumniProfiles
+│   └── AlumniRequests
+│
+├── Graduate Tracking
+│   ├── CareerTracking           <-- can view & update
+│   ├── EmploymentOutcomes       <-- analytics
+│   └── GradCohorts
+│
+├── Job Posting & Placement
+│   ├── JobBoard
+│   ├── JobPostForm
+│   ├── PlacementLogs
+│   └── JobRecommendations       <-- view only
+│
+├── Event Management
+│   ├── EventsCalendar
+│   ├── EventCreate
+│   └── EventAttendance
+│
+├── Donor & Campaign Tools
+│   ├── Donations
+│   ├── Campaigns
+│   └── DonorLedger
+│
+├── Newsletter & Announcements
+│   ├── Newsletter
+│   ├── MailingLists
+│   └── Announcements
+│
+├── Feedback & Surveys
+│   ├── Surveys
+│   ├── SurveyResponses
+│   └── SurveyInsights
+│
+└── Reports & Analytics
+    ├── AlumniReports
+    ├── TrackingAnalytics
+    └── DataExports
+
+(No access to Security & Users or Integrations)

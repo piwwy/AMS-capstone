@@ -1,0 +1,53 @@
+# Instructions for Refactoring routes/revenue.js (FMS → AMS)
+
+Goal:
+Refactor the current routes/revenue.js file from Financial Management System (FMS) into Alumni Management System (AMS).
+
+1. Remove all FMS-specific endpoints:
+   - /transactions (revenue_transactions)
+   - /sources (revenue_sources)
+   - /bills (student_bills, bill_line_items, accounts_receivable)
+
+2. Replace with AMS-specific endpoints:
+
+   Donations:
+   - GET /donations → fetch all confirmed/pending donations
+     • Include donor display preferences (name, anonymous, company logo)
+     • Allow query filters (by campaign_id, donor_id, date range)
+
+   - POST /donations → create new donation
+     • Request body fields: donor_name, donor_email, amount, currency, donation_type, campaign_id, payment_method, is_anonymous, message
+     • Attach created_by from req.user.userId
+     • Save to donations table
+     • Log audit action ("CREATE", table="donations")
+
+   Campaigns:
+   - GET /campaigns → fetch all active/past campaigns
+     • Include progress (SUM donations.amount vs goal_amount)
+
+   - POST /campaigns → create new campaign
+     • Request body fields: title, description, goal_amount, start_date, end_date
+     • Only admin/super_admin can create
+     • Save to campaigns table
+     • Log audit action ("CREATE", table="campaigns")
+
+   - PATCH /campaigns/:id → update campaign details
+     • Update description, goal_amount, dates, or status
+     • Only admin/super_admin can update
+     • Log audit action ("UPDATE", table="campaigns")
+
+3. Role permissions:
+   - super_admin: full access to all donations and campaigns
+   - admin: manage campaigns, approve/reject donations
+   - alumni: create donations only (own records)
+
+4. Response format:
+   - Always return JSON in the format: { success: true, data } or { success: false, error }
+   - On create/update: include { success: true, message, id }
+
+5. Audit logging:
+   - Use db.logAuditAction for all create/update actions
+   - Include userId, action, table, recordId, oldValues, newValues, ip, user-agent, sessionID
+
+
+Here is server/routes/revenue.js and an instructions.txt. Please refactor this file into AMS version by removing revenue/sources/bills endpoints and replacing them with donations and campaigns endpoints as described. Keep JWT authentication and audit logging."

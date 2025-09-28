@@ -1,0 +1,115 @@
+Instructions for Refactoring App.tsx (FMS → AMS)
+
+Convert this App.tsx from Financial Management System (FMS) into Alumni Management System (AMS).
+
+Keep login.tsx (AlumniLogin.tsx) as is. Do not modify it.
+
+Remove all routes related to the old FMS modules, including:
+
+StudentBilling
+
+ExpenseRequests
+
+PurchaseOrders
+
+Disbursements
+
+BankReconciliation
+
+BudgetForecasting
+
+BudgetTracking
+
+Add routes for the following AMS components (all located under components/ams/):
+
+Core & Access
+
+AlumniDashboard.tsx → /dashboard
+
+AlumniLogin.tsx → /login (unchanged)
+
+Alumni Information
+
+AlumniDirectory.tsx → /directory
+
+AlumniProfiles.tsx → /profiles
+
+AlumniRequests.tsx → /requests
+
+Graduate Tracking
+
+CareerTracking.tsx → /career-tracking
+
+EmploymentOutcomes.tsx → /employment-outcomes
+
+GradCohorts.tsx → /grad-cohorts
+
+Job Posting & Placement
+
+JobBoard.tsx → /jobs
+
+JobPostForm.tsx → /jobs/post
+
+PlacementLogs.tsx → /placements
+
+JobRecommendations.tsx → /recommendations
+
+Event Management
+
+EventsCalendar.tsx → /events
+
+EventCreate.tsx → /events/create
+
+EventAttendance.tsx → /events/attendance
+
+Donor & Campaign Tools
+
+Donations.tsx → /donations
+
+Campaigns.tsx → /campaigns
+
+DonorLedger.tsx → /donor-ledger
+
+Communications
+
+Announcements.tsx → /announcements
+
+Newsletter.tsx → /newsletter
+
+MailingLists.tsx → /mailing-lists
+
+Surveys & Feedback
+
+Surveys.tsx → /surveys
+
+SurveyResponses.tsx → /surveys/responses
+
+SurveyInsights.tsx → /surveys/insights
+
+Reports & Analytics
+
+AlumniReports.tsx → /reports
+
+TrackingAnalytics.tsx → /tracking-analytics
+
+DataExports.tsx → /data-exports
+
+Engagement / Community
+
+AlumniAchievements.tsx → /achievements
+
+AlumniMentorship.tsx → /mentorship
+
+AlumniMembership.tsx → /membership (optional)
+
+Security & Admin
+
+UserManagement.tsx → /users
+
+AuditLogs.tsx → /audit-logs
+
+Settings.tsx → /settings
+
+Ensure routing works with React Router v6 (use Routes, Route, and element={} syntax).
+
+Clean up App.tsx so there are no unused imports and it is easy to expand later.

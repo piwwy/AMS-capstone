@@ -1,0 +1,88 @@
+# Instructions for Refactoring App.tsx (FMS → AMS)
+
+Goal:
+Refactor the current App.tsx (from Financial Management System) into Alumni Management System (AMS). 
+Remove all FMS-related routes (StudentBilling, ExpenseRequests, PurchaseOrders, Disbursements, 
+BankReconciliation, BudgetForecasting, BudgetTracking, etc.). 
+Replace with the AMS module routes listed below.
+
+Keep login.tsx (AlumniLogin.tsx) as is, since it has already been customized.
+
+Use React Router v6 conventions (Routes, Route, element={}).
+
+-------------------------------------------------------
+Core & Access
+-------------------------------------------------------
+- Dashboard.tsx → System KPIs & quick actions (/dashboard)
+- AlumniLogin.tsx → Authentication (leave as is, do not modify)
+
+-------------------------------------------------------
+Alumni Information
+-------------------------------------------------------
+- AlumniDirectory.tsx → List of alumni records (/directory)
+- AlumniProfiles.tsx → Detailed alumni info & profile updates (/profiles)
+- AlumniRequests.tsx → Requests (certificates, account updates, membership) (/requests)
+
+-------------------------------------------------------
+Graduate Tracking
+-------------------------------------------------------
+- CareerTracking.tsx → Employment history logs per alumni (/career-tracking)
+- EmploymentOutcomes.tsx → Analytics (employed %, industries, trends) (/employment-outcomes)
+- GradCohorts.tsx → Batch-level comparison of outcomes (/grad-cohorts)
+
+-------------------------------------------------------
+Job Posting & Placement
+-------------------------------------------------------
+- JobBoard.tsx → Public job board view (/jobs)
+- JobPostForm.tsx → For admins/companies to post jobs (/jobs/post)
+- PlacementLogs.tsx → Track alumni placements (/placements)
+- JobRecommendations.tsx → AI/n8n-driven job suggestions per alumni (/recommendations)
+
+-------------------------------------------------------
+Event Management
+-------------------------------------------------------
+- EventsCalendar.tsx → Overview of events (/events)
+- EventCreate.tsx → Create/manage event (/events/create)
+- EventAttendance.tsx → Track attendance/tickets (/events/attendance)
+
+-------------------------------------------------------
+Donor & Campaign Tools
+-------------------------------------------------------
+- Donations.tsx → Donation handling (donor display preferences) (/donations)
+- Campaigns.tsx → Fundraising campaigns (/campaigns)
+- DonorLedger.tsx → Ledger view for transparency of funds (/donor-ledger)
+
+-------------------------------------------------------
+Communications
+-------------------------------------------------------
+- Announcements.tsx (/announcements)
+- Newsletter.tsx (/newsletter)
+- MailingLists.tsx (/mailing-lists)
+
+-------------------------------------------------------
+Surveys & Feedback
+-------------------------------------------------------
+- Surveys.tsx (/surveys)
+- SurveyResponses.tsx (/surveys/responses)
+- SurveyInsights.tsx (/surveys/insights)
+
+-------------------------------------------------------
+Reports & Analytics
+-------------------------------------------------------
+- AlumniReports.tsx (/reports)
+- TrackingAnalytics.tsx (/tracking-analytics)
+- DataExports.tsx (/data-exports)
+
+-------------------------------------------------------
+Engagement / Community
+-------------------------------------------------------
+- AlumniAchievements.tsx (/achievements)
+- AlumniMentorship.tsx (/mentorship)
+- AlumniMembership.tsx (optional later) (/membership)
+
+-------------------------------------------------------
+Security & Admin
+-------------------------------------------------------
+- UserManagement.tsx → RBAC (super admin, admin, alumni) (/users)
+- AuditLogs.tsx → Activity logs (/audit-logs)
+- Settings.tsx → System configs, integrations (/settings)

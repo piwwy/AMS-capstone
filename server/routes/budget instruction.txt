@@ -1,0 +1,48 @@
+# Instructions for Refactoring routes/budget.js (FMS → AMS)
+
+Goal:
+Refactor the current routes/budget.js file from Financial Management System (FMS) into Alumni Management System (AMS).
+
+1. Remove all FMS-specific budget routes and logic:
+   - GET / (getBudgets)
+   - POST / (createBudget)
+   - GET /requests (getBudgetRequests)
+   - POST /requests (createBudgetRequest)
+   - PATCH /requests/:id/approve (approve/reject budget requests)
+
+2. Replace with AMS-specific Donations and Campaigns routes:
+
+   Donations:
+   - GET /donations → fetch all donations (with donor display preferences)
+   - POST /donations → create new donation record (include donor_name, donor_email, amount, currency, donation_type, campaign_id, payment_method, is_anonymous, message, created_at)
+     - Only authenticated alumni can donate.
+     - Admin/super_admin can override status or approve donations.
+
+   Campaigns:
+   - GET /campaigns → fetch all campaigns
+   - POST /campaigns → create new campaign (title, description, goal_amount, start_date, end_date, created_by)
+     - Only admin/super_admin can create.
+   - PATCH /campaigns/:id → update campaign details (admin/super_admin only)
+
+3. Keep audit logging:
+   - For each donation or campaign creation/update, call db.logAuditAction with userId, action, table name, recordId, oldValues, newValues, ip, user-agent, and sessionID.
+
+4. Update role requirements:
+   - super_admin: full access (create/update campaigns, approve donations)
+   - admin: create/update campaigns, approve/reject donations
+   - alumni: create donation records only (their own)
+
+5. Clean error handling:
+   - 500 for internal server errors
+   - 401 for unauthenticated
+   - 403 for insufficient permissions
+
+6. Expected endpoints in AMS version:
+   - GET /donations
+   - POST /donations
+   - GET /campaigns
+   - POST /campaigns
+   - PATCH /campaigns/:id
+
+
+Here is server/routes/budget.js and an instructions.txt. Please refactor this route file for AMS by removing all budget-related endpoints and replacing them with donations and campaigns endpoints, as described in the instructions. Keep JWT authentication and audit logging the same."

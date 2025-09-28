@@ -1,0 +1,39 @@
+# Instructions for Refactoring auth.js (FMS → AMS)
+
+Goal:
+Refactor the current middleware/auth.js file used in the Financial Management System (FMS) into Alumni Management System (AMS).
+
+1. Keep JWT-based authentication logic the same:
+   - authenticateToken should still verify tokens using process.env.JWT_SECRET.
+   - If valid, attach decoded user info to req.user.
+
+2. Remove old FMS role definitions:
+   - finance_manager
+   - accountant
+   - auditor
+
+3. Replace with AMS role definitions:
+   - super_admin → full access to all modules
+   - admin → access to alumni management, events, job postings, communications, donations, mentorship, surveys, and reports
+   - alumni → limited access to personal profile, job board, events, mentorship, surveys, and communications
+
+4. Define role permissions for AMS:
+
+   super_admin:
+   - actions: ['create', 'read', 'update', 'delete', 'approve', 'reject']
+   - resources: ['all']
+
+   admin:
+   - actions: ['create', 'read', 'update', 'delete']
+   - resources: ['alumni', 'events', 'jobs', 'donations', 'campaigns', 'communications', 'surveys', 'reports', 'mentorship']
+
+   alumni:
+   - actions: ['read', 'update']
+   - resources: ['own_profile', 'jobs', 'events', 'mentorship', 'surveys', 'communications']
+
+5. Update requireRole to reflect AMS roles (super_admin, admin, alumni).
+
+6. Update requirePermission logic to match AMS modules and role permissions above.
+
+7. Ensure proper error handling remains (401 for unauthenticated, 403 for insufficient permissions).
+

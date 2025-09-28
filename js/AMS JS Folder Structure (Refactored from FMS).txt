@@ -1,0 +1,201 @@
+“Convert my old FMS JS files to AMS JS files following this folder structure and module purposes.”
+
+
+js/
+│
+├── auth.js                # Authentication & role-based access (Super Admin, Admin, Alumni)
+├── dashboard.js           # Dashboard KPIs: total alumni, employment %, donations, jobs
+├── database.js            # Database helper (queries for alumni, jobs, events, donations)
+├── main.js                # App entry logic / bootstrap
+├── modals.js              # Reusable modals for AMS (add alumni, create event, post job, donate)
+├── workflow.js            # Approval flows (donor visibility, alumni requests, event approvals)
+│
+├── alumniRequests.js      # Alumni requests (certificates, membership, account updates)
+├── alumniProfiles.js      # Alumni profiles management (info, updates, verification)
+├── careerTracking.js      # Graduate career path (employment history, outcomes, analytics)
+├── jobBoard.js            # Job board listing, posting, placement logs
+├── jobRecommendations.js  # AI/n8n-powered personalized job suggestions
+│
+├── events.js              # Event management (calendar, create, attendance)
+├── campaigns.js           # Fundraising campaigns (linked to donations)
+├── donations.js           # Donation logic (donor preferences, top donor display, approvals)
+│
+├── surveys.js             # Surveys creation, responses, insights
+├── reports.js             # Alumni reports (employment rates, donations, survey stats)
+
+
+
+
+
+How it maps from FMS → AMS
+
+budget.js → donations.js
+
+expenses.js → events.js
+
+funds.js → campaigns.js
+
+payables.js → alumniRequests.js
+
+receivables.js → jobBoard.js
+
+revenue.js → careerTracking.js
+
+reports.js → reports.js (but for alumni data, not finance)
+
+New Additions (specific to your capstone)
+
+alumniProfiles.js → detailed alumni info.
+
+jobRecommendations.js → automated AI job recommendations via n8n.
+
+surveys.js → for alumni feedback/surveys.
+
+
+
+
+
+
+
+
+Overall AMS JS Files (Logic Layer)
+
+(Business logic, data handling, workflows)
+
+auth.js → Authentication, roles, sessions
+
+dashboard.js → Compute KPIs (alumni count, employment rate, donations, etc.)
+
+database.js → DB connection helpers / queries
+
+main.js → Entry logic
+
+modals.js → Generic modals (confirm, alert, forms)
+
+workflow.js → Approval flows (donor visibility, alumni requests, events)
+
+Alumni
+
+alumniProfiles.js
+
+alumniRequests.js
+
+Graduate Tracking
+
+careerTracking.js
+
+employmentOutcomes.js (if logic separate from UI)
+
+gradCohorts.js
+
+Jobs
+
+jobBoard.js
+
+jobRecommendations.js (AI/n8n powered)
+
+placementLogs.js
+
+Events
+
+events.js (handles create, calendar, attendance)
+
+Donations
+
+donations.js
+
+campaigns.js
+
+donorLedger.js
+
+Surveys
+
+surveys.js
+
+surveyInsights.js
+
+Reports
+
+reports.js
+
+trackingAnalytics.js
+
+dataExports.js
+
+Security
+
+userManagement.js
+
+auditLogs.js
+
+settings.js
+
+Integrations (n8n layer)
+
+jobFetchWorkflow.js → pulls jobs from APIs (LinkedIn, JobStreet, etc.)
+
+alumniJobMatch.js → matches course/skills to jobs
+
+autoNotification.js → sends notifications/emails
+
+
+
+
+
+
+
+
+
+
+📊 BATCH 1 PROGRESS REPORT
+✅ COMPLETED FILES (9/29)
+Core System Files:
+
+✅ auth.js - Authentication & role-based access
+✅ dashboard.js - Dashboard KPIs and analytics
+✅ database.js - Database helper and queries
+✅ main.js - Main application controller
+✅ modals.js - Reusable modal system
+✅ workflow.js - Approval flows and workflows
+Alumni Management Files:
+
+✅ alumniRequests.js - Alumni requests management
+✅ alumniProfiles.js - Alumni profiles management
+✅ careerTracking.js - Career path tracking
+Graduate Analytics Files:
+
+✅ employmentOutcomes.js - Employment outcomes & analytics
+✅ gradCohorts.js - Graduate cohort management
+❌ REMAINING FILES (18/29)
+Job Management (4 files):
+
+❌ jobBoard.js
+❌ jobRecommendations.js
+❌ placementLogs.js
+❌ jobFetchWorkflow.js
+Event Management (1 file):
+
+❌ events.js
+Fundraising & Donations (3 files):
+
+❌ campaigns.js
+❌ donations.js
+❌ donorLedger.js
+Surveys & Feedback (2 files):
+
+❌ surveys.js
+❌ surveyInsights.js
+Reports & Analytics (3 files):
+
+❌ reports.js
+❌ trackingAnalytics.js
+❌ dataExports.js
+Security & Administration (3 files):
+
+❌ userManagement.js
+❌ auditLogs.js
+❌ settings.js
+Integration & Automation (2 files):
+
+❌ alumniJobMatch.js
+❌ autoNotification.js

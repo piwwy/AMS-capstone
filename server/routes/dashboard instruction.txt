@@ -1,0 +1,59 @@
+# Instructions for Refactoring routes/dashboard.js (FMS → AMS)
+
+Goal:
+Refactor the current routes/dashboard.js file from Financial Management System (FMS) into Alumni Management System (AMS).
+
+1. Remove all FMS-specific queries and endpoints:
+   - revenue_transactions
+   - expenses
+   - budget_requests / allocations
+   - accounts_receivable / accounts_payable
+   - funds
+   - financial_requests
+
+2. Replace with AMS-specific endpoints:
+
+   Dashboard Analytics:
+   - GET /analytics → return summary counts for:
+     • totalAlumni (COUNT alumni_profiles)
+     • employedAlumni (COUNT employment_status WHERE status='employed')
+     • unemployedAlumni (COUNT employment_status WHERE status='unemployed')
+     • activeEvents (COUNT events WHERE date >= CURRENT_DATE)
+     • totalDonations (SUM donations.amount WHERE status='confirmed')
+     • activeCampaigns (COUNT campaigns WHERE end_date >= CURRENT_DATE)
+     • mentorshipPairs (COUNT mentorships WHERE status='active')
+
+   Recent Activity:
+   - GET /recent-activity → fetch latest records from multiple modules (limit by query param):
+     • Recent alumni registrations (alumni_profiles ORDER BY created_at DESC)
+     • Recent donations (donations ORDER BY created_at DESC)
+     • Recent job postings (job_postings ORDER BY created_at DESC)
+     • Recent events (events ORDER BY created_at DESC)
+
+   Pending Approvals (Admin/Super Admin only):
+   - GET /pending-approvals → fetch pending items that require admin action:
+     • donation approvals (donations WHERE status='pending')
+     • campaign approvals (campaigns WHERE status='pending')
+     • event approvals (events WHERE status='pending')
+     • alumni account requests (alumni_requests WHERE status='pending')
+
+   Alerts & Notifications:
+   - GET /alerts → return alerts such as:
+     • Upcoming events within 7 days
+     • Campaigns ending soon (end_date <= 7 days from now)
+     • Donation goals near completion (SUM donations >= 90% of campaign.goal_amount)
+     • Alumni surveys closing soon (surveys with end_date <= 7 days from now)
+
+3. Keep audit logging where appropriate (especially for approvals).
+
+4. Update role logic:
+   - super_admin: can see all analytics, approvals, and alerts
+   - admin: can see analytics and pending approvals for their modules
+   - alumni: can only see limited analytics relevant to them (e.g., events, job postings)
+
+5. Response format:
+   - Always return { success: true, data } or { success: false, error }
+   - Ensure consistent JSON structure across all endpoints.
+
+
+"Here is server/routes/dashboard.js and an instructions.txt. Please refactor this route file to remove FMS-specific queries and replace them with AMS dashboard analytics, recent activity, pending approvals, and alerts as described. Keep JWT authentication and consistent JSON responses."
